@@ -1,0 +1,15 @@
+inputs = [(0,0), (0,1), (1,0), (1,1)]
+
+w1 = 1
+w2 = -1
+threshold = 1
+
+for x1, x2 in inputs:
+    net = w1*x1 + w2*x2
+
+    if net >= threshold:
+        output = 1 
+    else:
+        output = 0
+
+    print(f"{x1}, {x2}---> {output}")
