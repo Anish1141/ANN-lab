@@ -1,29 +1,28 @@
+###9
 import numpy as np
-# Sign activation function
-def sign(x):
-return np.where(x >= 0, 1,-1)
-# Define 4 bipolar patterns
-patterns = np.array([
-[1,-1, 1,-1],
-[-1, 1,-1, 1],
-[1, 1,-1,-1],
-[-1,-1, 1, 1]
-])
-# Number of neurons
-n = patterns.shape[1]
-# Initialize weight matrix
-W = np.zeros((n, n))
-# Training using Hebbian learning
+
+P1 = np.array([1, -1, 1, -1])
+P2 = np.array([-1, 1, -1, 1])
+P3 = np.array([1, 1, -1, -1])
+P4 = np.array([-1, -1, 1, 1])
+
+patterns = [P1, P2, P3, P4]
+
+W = np.zeros((4, 4))
+
 for p in patterns:
-W += np.outer(p, p)
-# Remove self-connections
+    W += np.outer(p, p)
+
 np.fill_diagonal(W, 0)
-print("Weight Matrix:\n", W)
-# Test with a noisy input
-test = np.array([1,-1, 1, 1])
-print("\nInitial Input:", test)
-# Recall process (iterative)
-for i in range(5):
-test = sign(np.dot(W, test))
-print(f"Iteration {i+1}: {test}")
-print("\nFinal Recalled Pattern:", test)
+
+p
+def sign(x):
+    return np.where(x >= 0, 1, -1)
+
+test = np.array([1, -1, 1, -1])   
+
+print("\nInput Pattern:", test)
+
+output = sign(np.dot(W, test))
+
+print("Recalled Pattern:", output)
