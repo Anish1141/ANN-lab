@@ -20,6 +20,7 @@ model.fit(X, y, epochs=100, verbose=0)
 loss, accuracy = model.evaluate(X, y)
 print("Accuracy:", accuracy)
 
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 import tensorflow as tf
 import numpy as np
