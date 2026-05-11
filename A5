@@ -38,3 +38,33 @@ Input: [-1  1 -1] -> Output: [-1 -1]
 Backward Recall:
 Output: [1 1] -> Input: [ 1 -1  1]
 Output: [-1 -1] -> Input: [-1  1 -1]
+
+
+###5
+import numpy as np
+
+x1 = np.array([1, -1, 1])
+y1 = np.array([1, -1])
+
+x2 = np.array([1, 1, -1])
+y2 = np.array([1, -1])
+
+w = np.outer(x1, y1) + np.outer(x2, y2)
+
+def sign(x):
+    return 1 if x >= 0 else -1
+
+x_test = x1.copy()
+
+# Forward pass: x -> y
+y_out = np.dot(x_test, w)
+y_out = np.array([sign(i) for i in y_out])
+
+print("Input x_test:", x_test)
+print("Output y_out:", y_out)
+
+# Backward pass: y -> x
+x_out = np.dot(y_out, w.T)
+x_out = np.array([sign(i) for i in x_out])
+
+print("Reconstructed x_out:", x_out)
