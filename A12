@@ -1,69 +1,40 @@
-
+# 12
 import tensorflow as tf
-from tensorflow.keras import layers, models
-# Load dataset (MNIST)
-(x_train, y_train), (x_test, y_test) = tf.keras.datasets.mnist.load_data()
-# Normalize data
-x_train = x_train / 255.0
-x_test = x_test / 255.0
-# Reshape for CNN
-x_train = x_train.reshape(-1,28,28,1)
-x_test = x_test.reshape(-1,28,28,1)
-# Build CNN model
+from tensorflow.keras import datasets, layers, models
+
+# -------- Step 1: Load dataset --------
+(X_train, y_train), (X_test, y_test) = datasets.mnist.load_data()
+
+# Normalize
+X_train = X_train / 255.0
+X_test = X_test / 255.0
+
+# Add channel dimension
+X_train = X_train.reshape(-1, 28, 28, 1)
+X_test = X_test.reshape(-1, 28, 28, 1)
+
+# -------- Step 2: Build CNN --------
 model = models.Sequential([
-layers.Conv2D(32, (3,3), activation='relu', input_shape=(28,28,1)),
-layers.MaxPooling2D((2,2)),
-layers.Conv2D(64, (3,3), activation='relu'),
-layers.MaxPooling2D((2,2)),
-layers.Flatten(),
-layers.Dense(64, activation='relu'),
-layers.Dense(10, activation='softmax')
+    layers.Conv2D(32, (3,3), activation='relu', input_shape=(28,28,1)),
+    layers.MaxPooling2D((2,2)),
+    
+    layers.Conv2D(64, (3,3), activation='relu'),
+    layers.MaxPooling2D((2,2)),
+    
+    layers.Flatten(),
+    layers.Dense(64, activation='relu'),
+    layers.Dense(10, activation='softmax')
 ])
-# Compile
+
+# -------- Step 3: Compile --------
 model.compile(optimizer='adam',
-loss='sparse_categorical_crossentropy',
-metrics=['accuracy'])
-# Train
-model.fit(x_train, y_train, epochs=5)
-# Evaluate
-loss, accuracy = model.evaluate(x_test, y_test)
-print("Test Accuracy:", accuracy)
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
 
+# -------- Step 4: Train --------
+model.fit(X_train, y_train, epochs=3)
 
+# -------- Step 5: Evaluate --------
+test_loss, test_acc = model.evaluate(X_test, y_test)
 
-import torch
-import torch.nn as nn
-import torch.optim as optim
-from torchvision import datasets, transforms
-# Transform
-transform = transforms.Compose([transforms.ToTensor()])
-# Load dataset
-train_data = datasets.MNIST(root='./data', train=True, transform=transform, download
-train_loader = torch.utils.data.DataLoader(train_data, batch_size=64, shuffle=True
-# CNN Model
-class CNN(nn.Module):
-def __init__(self):
-super(CNN, self).__init__()
-self.conv1 = nn.Conv2d(1, 32, 3)
-self.pool = nn.MaxPool2d(2)
-self.fc1 = nn.Linear(32*13*13, 128)
-self.fc2 = nn.Linear(128, 10)
-def forward(self, x):
-x = self.pool(torch.relu(self.conv1(x)))
-x = x.view(-1, 32*13*13)
-x = torch.relu(self.fc1(x))
-x = self.fc2(x)
-return x
-model = CNN()
-criterion = nn.CrossEntropyLoss()
-optimizer = optim.Adam(model.parameters(), lr=0.001)
-# Training
-for epoch in range(2):
-for images, labels in train_loader:
-optimizer.zero_grad()
-outputs = model(images)
-loss = criterion(outputs, labels)
-loss.backward()
-optimizer.step()
-In [3]:
-print("Training Complete")
+print("Test Accuracy:", test_acc)
