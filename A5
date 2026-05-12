@@ -66,3 +66,121 @@ x_out = np.dot(y_out, w.T)
 x_out = np.array([sign(i) for i in x_out])
 
 print("Reconstructed x_out:", x_out)
+
+xxxxxxxxxxxxxxxxxxxxx
+
+BAM stands for Bidirectional Associative Memory.
+It stores associated pattern pairs.
+Data flows in both directions:
+Input to Output
+Output to Input
+BAM is used for pattern recall and associative memory.
+
+This code implements a simple Bidirectional Associative Memory (BAM) network.
+
+BAM is a type of neural network that can remember and associate two patterns:
+
+Input pattern x
+Output pattern y
+
+Here:
+
+x1 ↔ y1
+x2 ↔ y2
+Step-by-step Short Explanation
+1. Import NumPy
+import numpy as np
+
+Used for matrix and array operations.
+
+2. Define Training Patterns
+x1 = np.array([1, -1, 1])
+y1 = np.array([1, -1])
+
+x2 = np.array([1, 1, -1])
+y2 = np.array([1, -1])
+
+These are the input-output pairs stored in BAM.
+
+Meaning:
+
+Pattern 1: x1 is associated with y1
+Pattern 2: x2 is associated with y2
+3. Create Weight Matrix
+w = np.outer(x1, y1) + np.outer(x2, y2)
+
+np.outer() calculates the outer product.
+
+It creates the BAM weight matrix.
+
+Formula:
+W=x
+1	​
+
+y
+1
+T	​
+
++x
+2	​
+
+y
+2
+T	
+
+This stores both associations inside the network.
+
+4. Sign Function
+def sign(x):
+    return 1 if x >= 0 else -1
+
+Activation function:
+
+Positive → 1
+Negative → -1
+
+Used to convert outputs into binary bipolar form.
+
+5. Test Input
+x_test = x1.copy()
+
+We give x1 as test input to check whether BAM recalls correct output.
+
+6. Forward Pass (x → y)
+y_out = np.dot(x_test, w)
+
+Dot product calculates output.
+
+Then:
+
+y_out = np.array([sign(i) for i in y_out])
+
+Converts values to 1 or -1.
+
+This recalls the associated y pattern.
+
+7. Print Forward Output
+print("Input x_test:", x_test)
+print("Output y_out:", y_out)
+
+Displays:
+
+Input pattern
+Retrieved output pattern
+8. Backward Pass (y → x)
+x_out = np.dot(y_out, w.T)
+
+Uses transpose of weight matrix (w.T) to reconstruct original input.
+
+Then apply sign function:
+
+x_out = np.array([sign(i) for i in x_out])
+
+This recalls the original x pattern.
+
+9. Final Output
+print("Reconstructed x_out:", x_out)
+Shows reconstructed input.
+
+Viva One-Line Answer
+This program implements a BAM neural network that stores and recalls associated bipolar patterns using forward and backward propagation.
