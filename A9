@@ -61,3 +61,131 @@ for i in range(5):
     print(f"Iteration {i+1}: {test}")
 
 print("\nFinal Recalled Pattern:", test)
+
+xxxxxxxxxxxxxxxxxxxx
+This program demonstrates a Hopfield Neural Network used for pattern storage and recall.
+Working
+Multiple patterns are stored in the network.
+Weight matrix is created using outer products of patterns.
+Diagonal values are set to 0.
+When a test pattern is given, the network recalls the closest stored pattern.
+
+Weight Matrix Formula
+W = Σ (P × Pᵀ)
+Activation Function
+sign(x) = 1   if x ≥ 0         -1  if x < 0                                                                                                                                                                                                         
+Viva Points
+Hopfield Network is a recurrent neural network.
+Used for associative memory and pattern recognition.
+Patterns are stored in bipolar form (1 and -1).
+The network recalls the nearest matching pattern from memory.
+
+
+This code implements a simple Hopfield Neural Network used for pattern storage and recall.
+
+Step-by-step Short Explanation
+import numpy as np
+
+Imports NumPy library for matrix and array operations.
+
+1. Define Patterns
+P1 = np.array([1, -1, 1, -1])
+P2 = np.array([-1, 1, -1, 1])
+P3 = np.array([1, 1, -1, -1])
+P4 = np.array([-1, -1, 1, 1])
+
+These are the patterns the Hopfield network will memorize.
+
+1 → ON state
+-1 → OFF state
+2. Store Patterns in List
+patterns = [P1, P2, P3, P4]
+
+All patterns are grouped together for training.
+
+3. Initialize Weight Matrix
+W = np.zeros((4, 4))
+
+Creates a 4×4 weight matrix filled with zeros.
+
+Why 4×4?
+Because each pattern has 4 neurons.
+
+4. Train the Network
+for p in patterns:
+    W += np.outer(p, p)
+
+This calculates the outer product of each pattern and adds it to weight matrix.
+
+Hopfield learning rule:
+
+W=∑pp
+T
+
+np.outer(p,p) creates connections between neurons.
+
+Example:
+If neurons have same sign → positive weight
+Different sign → negative weight
+
+5. Remove Self Connections
+np.fill_diagonal(W, 0)
+
+Diagonal values become 0 because neurons should not connect to themselves.
+
+6. Sign Activation Function
+def sign(x):
+    return np.where(x >= 0, 1, -1)
+
+Activation rule:
+
+if value ≥ 0 → output = 1
+else → output = -1
+7. Test Pattern
+test = np.array([1, -1, 1, -1])
+
+Input pattern given to network.
+
+8. Recall Stored Pattern
+output = sign(np.dot(W, test))
+
+Steps:
+
+Multiply weight matrix with input pattern
+Apply sign function
+Network recalls closest stored pattern
+9. Print Result
+print("Recalled Pattern:", output)
+
+Displays the pattern remembered by network.
+
+Expected Output
+Input Pattern: [ 1 -1  1 -1]
+Recalled Pattern: [ 1 -1  1 -1]
+
+The network successfully recalls the stored pattern.
+
+Viva Questions & Answers
+What is Hopfield Network?
+
+A recurrent neural network used for associative memory and pattern recall.
+
+What does the network store?
+
+Binary bipolar patterns (1 and -1).
+
+Why use outer product?
+
+To calculate neuron connection weights.
+
+Why diagonal is set to zero?
+
+To avoid self-connection of neurons.
+
+What is associative memory?
+
+Ability to recall stored data from partial/noisy input.
+
+What is sign activation function?
+
+It converts positive values to 1 and negative values to -1.
