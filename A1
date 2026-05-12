@@ -84,3 +84,116 @@ plt.grid()
 plt.show()
 
 
+Step Function – Gives output 0 or 1; used in Perceptron.
+Sigmoid Function – Output between 0 and 1; used for binary classification.
+ReLU Function – Outputs 0 for negative values and same value for positive values; most used in deep learning.
+Tanh Function – Output between -1 and 1; better than sigmoid for hidden layers
+
+“This code plots different activation functions used in neural networks using NumPy and Matplotlib.”
+
+import numpy as np
+import matplotlib.pyplot as plt
+numpy → used for mathematical operations.
+matplotlib → used for plotting graphs.
+x = np.linspace(-5, 5, 300)
+
+Creates 300 input values from -5 to 5.
+
+ACTIVATION FUNCTIONS
+Step Function
+def step(x):
+    return np.where(x >=0, 1, 0)
+If input ≥ 0 → output = 1
+Else → output = 0
+
+Used in simple perceptrons.
+
+Sigmoid Function
+def sigmoid(x):
+    return 1/(1+np.exp(-x))
+
+σ(x)=
+1+e
+−x
+1
+	
+
+Gives output between 0 and 1.
+Used for probability prediction.
+ReLU Function
+def relu(x):
+    return np.maximum(0, x)
+
+f(x)=max(0,x)
+
+Negative values become 0.
+Positive values stay same.
+
+Most used activation function.
+
+Tanh Function
+def tanh(x):
+    return np.tanh(x)
+
+tanh(x)=
+e
+x
++e
+−x
+e
+x
+−e
+−x
+	​
+Gives output between -1 and 1.
+Better than sigmoid in some cases.
+functions = [
+    (step(x), "step", "red"),
+    (sigmoid(x), "sigmoid", "blue"),
+    (relu(x), "ReLU", "green"),
+    (tanh(x), "Tanh", "orange")
+]
+
+Stores:
+
+function output
+graph name
+graph color
+
+inside a list.
+
+plt.figure(figsize=(10,6))
+
+Creates graph window.
+
+for i, (y,name,color) in enumerate(functions, 1):
+
+Loop goes through all activation functions one by one.
+
+plt.subplot(2, 2, i)
+
+Creates 4 graph sections in 2×2 format.
+
+plt.plot(x,y, color=color, linewidth=2)
+
+Draws graph.
+
+plt.title(name)
+
+Adds graph title.
+
+plt.grid(True)
+
+Shows grid.
+
+plt.tight_layout()
+
+Adjusts spacing between graphs.
+
+plt.suptitle("Activation Functions")
+
+Adds main title.
+
+plt.show()
+
+Displays all graphs.
