@@ -86,3 +86,131 @@ for epoch in range(5000):
 
 print("Final Output after Training:\n")
 print(a2)
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+input values are passed through:
+Hidden layer
+Output layer
+Sigmoid activation function is used.
+Error is calculated and propagated backward.
+Weights are updated repeatedly to minimize error.
+Backpropagation is used to train multi-layer neural networks.
+XOR is a non-linear problem.
+Hidden layers help solve non-linearly separable problems.
+Sigmoid function introduces non-linearity.
+
+This code implements a simple Artificial Neural Network (ANN) to solve the XOR problem.
+
+XOR truth table:
+
+x1	x2	y
+0	0	0
+0	1	1
+1	0	1
+1	1	0
+Code Explanation (Short & Easy)
+import numpy as np
+
+Imports NumPy library for matrix calculations.
+
+x = np.array([[0,0],[0,1],[1,0],[1,1]])
+y = np.array([[0],[1],[1],[0]])
+x = input dataset
+y = expected XOR output
+np.random.seed(1)
+
+Fixes random values so output remains same every time.
+
+w1 = np.random.rand(2,2)
+w2 = np.random.rand(2,1)
+
+Randomly initializes weights.
+
+w1 → weights from input layer → hidden layer
+w2 → weights from hidden layer → output layer
+
+Architecture:
+
+Input Layer (2 neurons)
+→ Hidden Layer (2 neurons)
+→ Output Layer (1 neuron)
+
+Activation Function
+def sigmoid(z):
+    return 1 / (1+ np.exp(-z))
+
+Sigmoid converts values between 0 and 1.
+
+Formula:
+σ(x)=
+1+e
+−x
+1
+
+Used to activate neurons.
+
+Derivative Function
+def derivative(z):
+    return z * (1-z)
+
+Derivative of sigmoid.
+Used during backpropagation to update weights.
+
+Training Loop
+for epoch in range (5000):
+
+Network trains 5000 times to reduce error.
+
+Forward Propagation
+hidden = sigmoid(np.dot(x, w1))
+Inputs are multiplied with w1
+Result passes through sigmoid
+Produces hidden layer output
+output = sigmoid(np.dot(hidden, w2))
+
+Hidden layer output is multiplied with w2
+to produce final output.
+
+Error Calculation
+error =  y - output
+
+Finds difference between actual and predicted output.
+
+Backpropagation
+d_output = error * derivative(output)
+
+Calculates output layer gradient.
+
+d_hidden = np.dot(d_output, w2.T) * derivative(hidden)
+
+Calculates hidden layer gradient.
+
+Weight Update
+w2 += np.dot(hidden.T, d_output)
+w1 += np.dot(x.T, d_hidden)
+
+Weights are adjusted to reduce error and improve predictions.
+
+Final Output
+print("Predicted output :\n",output.round())
+
+Rounds output to 0 or 1.
+
+Expected Output:
+
+[[0.]
+ [1.]
+ [1.]
+ [0.]]
+
+This means the ANN successfully learned XOR logic.
+
+Viva Points (Very Important)
+XOR cannot be solved using a single perceptron.
+Hence we use a Multi Layer Perceptron (MLP).
+ANN uses:
+Forward propagation
+Backpropagation
+Sigmoid activation
+Weight updating
+Hidden layer helps learn complex patterns.
