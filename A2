@@ -13,3 +13,62 @@ for x1, x2 in inputs:
         output = 0
 
     print(f"{x1}, {x2}---> {output}")
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+The McCulloch-Pitts neuron is the simplest artificial neuron model used in neural networks. It works using weighted inputs and a threshold value.
+
+In the ANDNOT function:
+
+Output is 1 only when x1 = 1 and x2 = 0.
+Otherwise output is 0.
+Logic
+x1 has positive weight (+1)
+x2 has inhibitory weight (-1)
+Threshold = 1
+
+This code is a simple Perceptron model (Artificial Neuron) used to classify binary inputs.
+
+inputs = [(0,0), (0,1), (1,0), (1,1)]
+These are all possible combinations of 2 binary inputs.
+w1 = 1
+w2 = -1
+These are weights of the neuron.
+Weight decides importance of each input.
+Here:
+first input has positive effect (+1)
+second input has negative effect (-1)
+threshold = 1
+Threshold is the minimum value needed to activate the neuron.
+for x1, x2 in inputs:
+Loop goes through each input pair one by one.
+net = w1*x1 + w2*x2
+Calculates the net input using formula:
+
+net=w
+1
+	​
+x
+1
+	​
++w
+2
+	​
+x
+2​
+
+Example for (1,0):
+net = (1×1) + (-1×0)
+net = 1
+if net >= threshold:
+    output = 1
+else:
+    output = 0
+If net value is greater than or equal to threshold → output is 1
+Otherwise output is 0
+
+This acts like a step activation function.
+
+print(f"{x1}, {x2}---> {output}")
+Prints input and corresponding output.
+
+“This program implements a simple perceptron using weighted inputs and a threshold to generate binary output.”
