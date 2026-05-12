@@ -26,3 +26,38 @@ print("\nInput Pattern:", test)
 output = sign(np.dot(W, test))
 
 print("Recalled Pattern:", output)
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+#ANN9
+import numpy as np
+
+def sign(x):
+    return np.where(x >= 0, 1, -1)
+
+patterns = np.array([
+    [1, -1, 1, -1],
+    [-1, 1, -1, 1],
+    [1, 1, -1, -1],
+    [-1, -1, 1, 1]
+])
+
+n = patterns.shape[1]
+W = np.zeros((n, n))
+
+for p in patterns:
+    W += np.outer(p, p)
+
+np.fill_diagonal(W, 0)
+
+print("Weight Matrix:\n", W)
+
+test = np.array([1, -1, 1, 1])
+print("\nInitial Input:", test)
+
+for i in range(5):
+    test = sign(np.dot(W, test))
+    print(f"Iteration {i+1}: {test}")
+
+print("\nFinal Recalled Pattern:", test)
