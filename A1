@@ -3,72 +3,37 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Input range
-x = np.linspace(-10, 10, 100)
+x = np.linspace(-5, 5, 300)
 
-# Activation Functions
+def step(x):
+    return np.where(x >=0, 1, 0)
+
 def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
-
-def tanh(x):
-    return np.tanh(x)
+    return 1/(1+np.exp(-x))
 
 def relu(x):
     return np.maximum(0, x)
 
-def leaky_relu(x):
-    return np.where(x > 0, x, 0.01 * x)
+def tanh(x):
+    return np.tanh(x)
 
-def step(x):
-    return np.where(x >= 0, 1, 0)
+functions = [
+    (step(x), "step", "red"),
+    (sigmoid(x), "sigmoid", "blue"),
+    (relu(x), "ReLU", "green"),
+    (tanh(x), "Tanh", "orange")
+]
 
-def linear(x):
-    return x
+plt.figure(figsize=(10,6))
 
-# Create Figure
-plt.figure(figsize=(10, 8))
+for i, (y,name,color) in enumerate(functions, 1):
+    plt.subplot(2, 2, i)
+    plt.plot(x,y, color=color, linewidth=2)
+    plt.title(name)
+    plt.grid(True)
 
-# Step Function
-plt.subplot(3, 2, 1)
-plt.plot(x, step(x))
-plt.title("Step Function")
-plt.grid()
-
-# Linear Function
-plt.subplot(3, 2, 2)
-plt.plot(x, linear(x))
-plt.title("Linear Function")
-plt.grid()
-
-# Sigmoid
-plt.subplot(3, 2, 3)
-plt.plot(x, sigmoid(x))
-plt.title("Sigmoid Function")
-plt.grid()
-
-# Tanh
-plt.subplot(3, 2, 4)
-plt.plot(x, tanh(x))
-plt.title("Tanh Function")
-plt.grid()
-
-# ReLU
-plt.subplot(3, 2, 5)
-plt.plot(x, relu(x))
-plt.title("ReLU Function")
-plt.grid()
-
-# Leaky ReLU
-plt.subplot(3, 2, 6)
-plt.plot(x, leaky_relu(x))
-plt.title("Leaky ReLU Function")
-plt.grid()
-
-# Adjust layout
 plt.tight_layout()
-
-# Show plots
+plt.suptitle("Activation Functions", fontsize=14, fontweight="bold")
 plt.show()
-
 
 
