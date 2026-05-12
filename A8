@@ -79,3 +79,159 @@ for epoch in range(5000):
 print("Final OUtput")
 # print(a2)
 print(a2.round())
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+This program implements an MLP Neural Network using Backpropagation to solve the XOR problem.
+
+Working
+Input layer receives XOR inputs.
+Hidden layer contains 3 neurons.
+Output layer predicts XOR output.
+Sigmoid activation function is used.
+Weights and biases are updated during training using backpropagation
+Prithviraj Jagtap PES: XOR is a non-linear problem.
+MLP uses hidden layers to solve complex problems.
+Backpropagation reduces prediction error.
+Bias improves learning accuracy.
+
+
+This code implements a simple Artificial Neural Network (ANN) to solve the XOR problem using Backpropagation.
+
+Step-by-step Short Explanation
+1. Import NumPy
+import numpy as np
+
+Used for matrix and mathematical operations.
+
+2. Input and Output Data
+x = np.array([[0,0],[0,1],[1,0],[1,1]])
+y = np.array([[0],[1],[1],[0]])
+
+This is XOR truth table:
+
+x1	x2	Output
+0	0	0
+0	1	1
+1	0	1
+1	1	0
+
+x = inputs
+y = expected outputs
+
+3. Initialize Weights and Biases
+np.random.seed(0)
+
+Fixes random values so output stays same every run.
+
+Hidden Layer Weights
+w1 = np.random.rand(2,3)
+b1 = np.zeros((1,3))
+2 input neurons
+3 hidden neurons
+
+w1 = weights from input → hidden layer
+b1 = bias for hidden layer
+
+Output Layer Weights
+w2 = np.random.rand(3,1)
+b2 = np.zeros((1,1))
+3 hidden neurons
+1 output neuron
+
+w2 = weights from hidden → output layer
+b2 = output bias
+
+4. Activation Function
+Sigmoid Function
+def sigmoid(z):
+    return 1 / (1+ np.exp(-z))
+
+Converts values between 0 and 1.
+
+σ(x)=
+1+e
+−x
+1
+	
+Used to activate neurons.
+
+5. Derivative Function
+def derivative(z):
+    return z * (1-z)
+
+Derivative of sigmoid.
+Used during backpropagation to update weights.
+
+σ
+′
+(x)=σ(x)(1−σ(x))
+
+6. Training Loop
+for epoch in range(5000):
+
+Network trains 5000 times.
+
+Each iteration improves accuracy.
+
+7. Forward Propagation
+Hidden Layer Output
+hidden = sigmoid(np.dot(x, w1)+b1)
+
+Steps:
+
+Multiply inputs with weights
+Add bias
+Apply sigmoid
+Final Output
+output = sigmoid(np.dot(hidden, w2)+b2)
+
+Hidden layer output goes to final neuron.
+
+8. Calculate Error
+error = y - output
+
+Difference between actual and predicted output.
+
+9. Backpropagation
+Output Layer Adjustment
+d_output = error * derivative(output)
+
+Calculates how much output weights should change.
+
+Hidden Layer Adjustment
+d_hidden = np.dot(d_output, w2.T) * derivative(hidden)
+
+Propagates error back to hidden layer.
+
+10. Update Weights and Biases
+Update Output Layer
+w2 += np.dot(hidden.T, d_output)
+b2 += np.sum(d_output, axis =0, keepdims=True)
+Update Hidden Layer
+w1 += np.dot(x.T, d_hidden)
+b1 += np.sum(d_hidden, axis =0, keepdims=True)
+
+Weights are updated to reduce error.
+
+11. Print Final Output
+print("Predicted output :\n",output.round())
+
+Rounds values to 0 or 1.
+
+Expected output:
+
+[[0]
+ [1]
+ [1]
+ [0]]
+Very Short Viva Explanation
+
+“This program implements a multi-layer neural network for XOR logic using backpropagation.
+It has:
+
+2 input neurons
+1 hidden layer with 3 neurons
+1 output neuron
+
+The network uses sigmoid activation function.
+Forward propagation calculates output, backpropagation calculates error and updates weights for 5000 epochs until the network learns XOR correctly.”
