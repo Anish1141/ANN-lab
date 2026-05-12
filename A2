@@ -1,18 +1,23 @@
+
+# McCulloch-Pitts ANDNOT function
+
+def mc_culloch_pitts(x1, x2):
+    w1 = 1
+    w2 = -1
+    threshold = 1
+    
+    net_input = (w1 * x1) + (w2 * x2)
+    
+    if net_input >= threshold:
+        return 1
+    else:
+        return 0
+
 inputs = [(0,0), (0,1), (1,0), (1,1)]
 
-w1 = 1
-w2 = -1
-threshold = 1
-
+print("x1 x2 -> Output")
 for x1, x2 in inputs:
-    net = w1*x1 + w2*x2
-
-    if net >= threshold:
-        output = 1 
-    else:
-        output = 0
-
-    print(f"{x1}, {x2}---> {output}")
+    print(x1, x2, "->", mc_culloch_pitts(x1, x2))
 
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 The McCulloch-Pitts neuron is the simplest artificial neuron model used in neural networks. It works using weighted inputs and a threshold value.
