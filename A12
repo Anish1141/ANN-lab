@@ -38,3 +38,120 @@ model.fit(X_train, y_train, epochs=3)
 test_loss, test_acc = model.evaluate(X_test, y_test)
 
 print("Test Accuracy:", test_acc)
+
+xxxxxxxxxxxxxxxxx
+This program builds a CNN (Convolutional Neural Network) using TensorFlow/Keras to recognize handwritten digits from the MNIST dataset (0–9).
+
+Step-by-Step Short Explanation
+1. Import Libraries
+import tensorflow as tf
+from tensorflow.keras import datasets, layers, models
+tensorflow → Deep Learning library
+datasets → loads MNIST dataset
+layers → used to create CNN layers
+models → used to build the neural network model
+2. Load Dataset
+(X_train, y_train), (X_test, y_test) = datasets.mnist.load_data()
+Loads MNIST handwritten digit images.
+X_train → training images
+y_train → training labels
+X_test → testing images
+y_test → testing labels
+
+Each image size = 28 × 28 pixels
+
+3. Normalize Data
+X_train = X_train / 255.0
+X_test = X_test / 255.0
+
+Pixel values are between 0–255.
+
+Dividing by 255 converts them to 0–1 range.
+
+This helps the model train faster and better.
+
+4. Reshape Images
+X_train = X_train.reshape(-1, 28, 28, 1)
+X_test = X_test.reshape(-1, 28, 28, 1)
+
+CNN expects 4D input:
+
+(samples, height, width, channels)
+28 → image height
+28 → image width
+1 → grayscale channel
+5. Build CNN Model
+model = models.Sequential([
+
+Sequential() means layers are added one after another.
+
+First Convolution Layer
+layers.Conv2D(32, (3,3), activation='relu', input_shape=(28,28,1))
+Applies 32 filters of size 3×3
+Detects image features like edges/shapes
+ReLU activation removes negative values
+First Pooling Layer
+layers.MaxPooling2D((2,2))
+Reduces image size
+Keeps important features
+Makes training faster
+Second Convolution Layer
+layers.Conv2D(64, (3,3), activation='relu')
+Uses 64 filters
+Learns more complex features
+Second Pooling Layer
+layers.MaxPooling2D((2,2))
+
+Again reduces feature map size.
+
+Flatten Layer
+layers.Flatten()
+
+Converts 2D feature maps into 1D vector for Dense layers.
+
+Dense Hidden Layer
+layers.Dense(64, activation='relu')
+
+Fully connected layer with 64 neurons.
+
+Output Layer
+layers.Dense(10, activation='softmax')
+10 neurons → digits 0 to 9
+softmax gives probability of each digit
+6. Compile Model
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
+Optimizer
+
+adam → updates weights efficiently.
+
+Loss Function
+
+sparse_categorical_crossentropy → used for multi-class classification.
+
+Metric
+
+accuracy → checks prediction accuracy.
+
+7. Train Model
+model.fit(X_train, y_train, epochs=3)
+Trains CNN using training data
+epochs=3 means dataset is trained 3 times
+8. Evaluate Model
+test_loss, test_acc = model.evaluate(X_test, y_test)
+
+Checks model performance on unseen test data.
+
+9. Print Accuracy
+print("Test Accuracy:", test_acc)
+
+Displays final test accuracy.
+
+Usually accuracy is around 98%.
+
+Very Short Viva Explanation
+
+“This code uses a CNN model to classify handwritten digits from the MNIST dataset. The images are normalized and reshaped before training. 
+The CNN uses convolution, pooling, flatten, and dense layers. The model is compiled using Adam optimizer and trained for 3 epochs. Finally, 
+test accuracy is calculated.”
