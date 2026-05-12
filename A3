@@ -1,27 +1,26 @@
 import numpy as np
 
-x= np.array([0,1,0,1,0,1,0,1,0,1])
-y= np.array([0,1,0,1,0,1,0,1,0,1])
+x = np.array([[int(b) for b in format(ord(str(d)), '08b')] for d in range(10)])
+y = np.array([d % 2 for d in range(10)]) # 0-even, 1-odd
 
-w= 0
-b = 0
-lr = 0.0001
+# train
+w = np.zeros(8)
+bias = 0
+n = 0.1
 
-
-for _ in range(100):
+for _ in range(20):
     for i in range(10):
-        net = x[i]*w+b
-        pred = 1 if net>= 0 else 0
-        error = y[i]- pred
+        pred = 1 if np.dot(x[i], w) + bias >=0 else 0
+        error = y[i] - pred
+        w += n * error * x[i]
+        bias += n * error
 
-        w += lr*error*x[i]
-        b += lr*error
-
-
-for i in range(10):
-    net = x[i]*w+b
-    pred = 1 if net>=0 else 0
-    print(i, "--->", "Odd" if pred else "Even")
+# test
+print(" Digit | Predicted")
+print("------ | ---------")
+for d in range(10):
+    pred = 1 if np.dot(x[d], w) + bias >=0 else 0
+    print(f"  {d}    |   {'Odd' if pred == 1 else 'Even'}")s
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 import numpy as np
