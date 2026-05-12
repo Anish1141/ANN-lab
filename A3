@@ -47,3 +47,137 @@ for i in range(len(x)):
     net =w*x[i]+b
     pred = 1 if net>=0 else 0
     print(i, "----->", "Odd" if pred else "Even")
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+Digits are first converted into 8-bit ASCII binary values.
+The perceptron is trained using:
+Weights
+Bias
+Learning rate
+During training, weights are updated based on prediction error.
+
+
+This code uses a simple Perceptron (single neuron) to identify whether a digit is Odd or Even.
+
+Step-by-step Explanation
+1. Import NumPy
+import numpy as np
+Imports NumPy library for arrays and mathematical operations.
+2. Create Input Data
+x = np.array([[int(b) for b in format(ord(str(d)), '08b')] for d in range(10)])
+What happens here?
+
+Digits 0–9 are converted into:
+
+String
+ASCII value
+8-bit binary number
+
+Example:
+
+'0' → ASCII 48 → 00110000
+'1' → ASCII 49 → 00110001
+
+So each digit becomes an 8-bit binary input.
+
+Example
+0 → [0 0 1 1 0 0 0 0]
+1 → [0 0 1 1 0 0 0 1]
+
+These are the inputs to the neuron.
+
+3. Create Output Labels
+y = np.array([d % 2 for d in range(10)])
+
+This creates target outputs:
+
+Even → 0
+Odd → 1
+
+Example:
+
+0 → 0
+1 → 1
+2 → 0
+3 → 1
+4. Initialize Weights and Bias
+w = np.zeros(8)
+bias = 0
+n = 0.1
+w → weights for 8 input bits
+bias → extra value added to neuron
+n → learning rate
+
+Initially:
+
+weights = [0,0,0,0,0,0,0,0]
+5. Training the Perceptron
+for _ in range(20):
+Train the neuron for 20 epochs (repetitions).
+Inside Training
+pred = 1 if np.dot(x[i], w) + bias >=0 else 0
+Net Input Formula
+
+The perceptron calculates:
+
+net=x⋅w+b
+
+Where:
+
+x = input bits
+w = weights
+b = bias
+
+If net ≥ 0 → output = 1
+Else → output = 0
+
+6. Error Calculation
+error = y[i] - pred
+Checks prediction correctness.
+
+Example:
+
+Actual = 1
+Predicted = 0
+Error = 1
+7. Update Weights
+w += n * error * x[i]
+bias += n * error
+Weight Update Formula
+
+w
+new
+	​
+
+=w
+old
+	​
+
++η×error×x
+
+Where:
+
+η (eta) = learning rate
+error = actual − predicted
+x = input
+
+This helps the neuron learn from mistakes.
+
+8. Testing Phase
+for d in range(10):
+
+The trained perceptron predicts whether each digit is:
+
+Odd
+Even
+Output
+ Digit | Predicted
+------ | ---------
+  0    |   Even
+  1    |   Odd
+Short Viva Answer
+
+“This program implements a single-layer perceptron to classify digits as odd or even. Digits are converted into 8-bit binary ASCII inputs. 
+The perceptron calculates weighted sums using weights and bias, predicts output using a threshold function, calculates error, and updates weights during training. 
+After training, it predicts whether each digit is odd or even.”
