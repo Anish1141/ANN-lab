@@ -37,3 +37,150 @@ plt.xlabel("x1")
 plt.ylabel("x2")
 plt.grid()
 plt.show()
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+Perceptron Learning Formula
+w(new) = w(old) + η × error × x
+
+Where:
+η = Learning rate
+error = target - output
+x = Input
+
+Decision Boundary Formula
+w1x1 + w2x2 + b = 0
+
+Where:
+
+w1, w2 = Weights
+x1, x2 = Inputs
+b = Bias
+
+
+This code implements a simple Perceptron for AND gate and then plots the decision boundary.
+
+Step-by-step Short Explanation
+1. Import Library
+import matplotlib.pyplot as plt
+
+Used for plotting graphs.
+
+2. Input Data
+x1 = [0, 0, 1, 1]
+x2 = [0, 1, 0, 1]
+target = [0, 0, 0, 1]
+
+These are AND gate inputs and outputs.
+
+x1	x2	Target
+0	0	0
+0	1	0
+1	0	0
+1	1	1
+
+Only (1,1) gives output 1.
+
+3. Initialize Weights and Bias
+w1 = 0
+w2 = 0
+b = 0
+lr = 0.1
+w1, w2 → weights
+b → bias
+lr → learning rate (controls learning speed)
+4. Training the Perceptron
+for _ in range(10):
+
+Runs training for 10 epochs.
+
+5. Calculate Net Input
+net = w1*x1[i] + w2*x2[i] + b
+
+Perceptron formula:
+net=w
+1	​
+
+x
+1
+	​
++w
+2
+	​
+x
+2
+	​
++b
+
+This calculates neuron input.
+
+6. Activation Function
+output = 1 if net >= 0 else 0
+
+This is a step activation function.
+
+If net ≥ 0 → output = 1
+Else → output = 0
+7. Calculate Error
+error = target[i] - output
+
+Checks prediction mistake.
+
+Formula:
+error=target−output
+
+8. Update Weights
+w1 += lr * error * x1[i]
+w2 += lr * error * x2[i]
+b += lr * error
+
+Weights are adjusted to reduce error.
+
+Weight update rule:
+w
+new
+	​
+=w
+old
+	​
++η×error×input
+
+where:
+
+η = learning rate
+9. Plot Points
+plt.scatter()
+
+Plots input points.
+
+Circle → output 0
+X mark → output 1
+10. Decision Boundary Line
+y = [-(w1*x[0] + b)/w2, -(w1*x[1] + b)/w2]
+
+Equation of separating line:
+w
+1
+	​
+x
+1
+	​
++w
+2
+	​
+x
+2​
+
++b=0
+
+This line separates:
+
+AND = 0 points
+AND = 1 point
+11. Show Graph
+plt.show()
+
+Displays final graph.
+
+Viva One-Line Summary
+
+“This program trains a perceptron to learn the AND gate using weight updates and then plots the decision boundary separating output classes.”
