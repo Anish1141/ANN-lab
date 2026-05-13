@@ -1,4 +1,4 @@
-###7
+in###7
 import numpy as np
 x = np.array([[0,0],[0,1],[1,0],[1,1]])
 y = np.array([[0],[1],[1],[0]])
@@ -28,6 +28,59 @@ for epoch in range (5000):
 print("Predicted output :\n",output.round())
 
 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+import numpy as np
+
+# ADD input & output
+x = np.array([[0,0],
+              [0,1],
+              [1,0],
+              [1,1]])
+
+y = np.array([[0],
+              [1],
+              [1],
+              [0]])
+
+np.random.seed(42)
+
+w1 = np.random.rand(2,2)
+w2 = np.random.rand(2,1)
+
+# ADD bias
+b1 = np.random.rand(1,2)
+b2 = np.random.rand(1,1)
+
+# ADD learning rate
+lr = 0.1
+
+def sigmoid(x):
+    return 1/(1+np.exp(-x))
+
+def derivation(x):
+    return x*(1-x)
+
+for epoch in range(5000):
+
+    # JUST add + bias here
+    hidden = sigmoid(np.dot(x, w1) + b1)
+    output = sigmoid(np.dot(hidden, w2) + b2)
+
+    error = y - output
+
+    d_output = error * derivation(output)
+    d_hidden = np.dot(d_output, w2.T) * derivation(hidden)
+
+    # JUST multiply by lr
+    w2 += lr * np.dot(hidden.T, d_output)
+    w1 += lr * np.dot(x.T, d_hidden)
+
+    # ADD bias update
+    b2 += lr * np.sum(d_output, axis=0, keepdims=True)
+    b1 += lr * np.sum(d_hidden, axis=0, keepdims=True)
+
+print(output)
+
+xxxxxxxxxxxxxxxxxxxxxx
 
 import numpy as np
 
